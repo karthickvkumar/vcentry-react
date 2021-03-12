@@ -3,3 +3,24 @@
   height: auto;
 }
 
+.label{
+  width: 140px;
+  display: inline-block;
+}
+
+.input{
+  width: 200px;
+}
+
+.input-wrapper{
+  margin-bottom: 8px;
+}
+
+.form{
+  margin-left: 15px;
+  margin-top: 15px;
+}
+
+.error-msg{
+  color: red;
+}
