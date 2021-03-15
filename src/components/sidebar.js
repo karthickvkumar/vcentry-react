@@ -5,96 +5,110 @@ class Sidebar extends Component {
   constructor(props){
     super(props);
     this.state = {
-      firstName: '',
-      firstNameError: false,
-      lastName : '',
-      lastNameError : false,
-      emailID : '',
-      emailIDError : false,
-      address : '',
-      addressError: false,
-      gender: '',
-      genderError: false,
-      skills : [],
-      skillsError : false,
-      city : '',
-      cityError : false,
-      state : '',
-      stateError : false,
+      register : {
+        firstName: '',
+        lastName : '',
+        emailID : '',
+        address : '',
+        gender: '',
+        city : '',
+        skills : [],
+        state : '',
+      },
+      error: {
+        firstName: false,
+        lastName : false,
+        emailID : false,
+        address: false,
+        gender: false,
+        skills : false,
+        city : false,
+        state : false,
+      }
     }
   }
 
 
   inputChange = (event) => {
+    const {skills } = this.state.register;
     if(event.target.name === 'skills'){
       if(event.target.checked){
-        this.state.skills.push(event.target.value);
+        skills.push(event.target.value);
       }else{
-        const index = this.state.skills.findIndex((value) => value === event.target.value);
-        this.state.skills.splice(index, 1);
+        const index = skills.findIndex((value) => value === event.target.value);
+        skills.splice(index, 1);
       }
       this.setState({
-        skills : this.state.skills
+        register : {...this.state.register, skills : skills}
       })
     }
     else if(event.target.name !== 'skills'){
       this.setState({
-        [event.target.name] : event.target.value
+        register : {...this.state.register, [event.target.name] : event.target.value}
+      })
+    }
+  }
+  
+  onFocusInput = (event) => {
+    this.setState({
+      error : {...this.state.error, [event.target.name] : false}
+    })
+  }
+
+  onBlurInput = (event) => {
+    if(event.target.value.trim() == ''){
+      this.setState({
+        error : {...this.state.error, [event.target.name] : true}
       })
     }
   }
 
-  // onBlurInput = (event) => {
-  //   console.log(event)
-  // }
-
-  // onFocusInput = (event) => {
-  //   console.log(event)
-  // }
-
+  onFormValidate(){
+    let { error, register } = this.state;
+    for(var key in error){
+      if(key === 'skills'){
+        error = {...error, [key] : register['skills'].length == 0 ? true : false  }
+      }else{
+        error = {...error, [key] : register[key].trim() == '' ? true : false  };
+      }
+    }
+    this.setState({
+      error : error
+    })
+  }
+  
   onClickRegister(){
-    console.log(this.state);
-    if(this.state.firstName == ''){
-      this.setState({
-        firstNameError : true
-      })
-    }
-    else{
-      this.setState({
-        firstNameError : false
-      })
-    }
-
-    this.state.lastName == '' ? this.setState({ lastNameError : true}) : this.setState({ lastNameError : false})
+    this.onFormValidate();
+    
   }
 
   render() {
-    let { firstNameError, lastNameError, emailIDError, genderError, skillsError, cityError, stateError, addressError} = this.state;
+    let { firstName, lastName, emailID, gender, skills, city, state, address} = this.state.error;
 
     return ( 
       <div className="form">
         <div className="input-wrapper">
           <label className="label">Enter First Name:</label>
           <input className="input" type="text" name="firstName" placeholder="Please enter first name" onChange={this.inputChange} onBlur={this.onBlurInput} onFocus={this.onFocusInput}/>
-          { firstNameError &&  <p className="error-msg">Please enter a valid first name</p>}
+          { firstName &&  <p className="error-msg">Please enter a valid first name</p>}
           
         </div>
         <div className="input-wrapper">
           <label className="label">Enter Last Name:</label>
           <input className="input" type="text" name="lastName" placeholder="Please enter last name" onChange={this.inputChange} onBlur={this.onBlurInput} onFocus={this.onFocusInput}/>
-          { lastNameError && <p className="error-msg">Please enter a valid last name</p>}
+          { lastName && <p className="error-msg">Please enter a valid last name</p>}
         </div>
         <div className="input-wrapper">
           <label className="label">Enter Email ID:</label>
           <input className="input" type="text" name="emailID" placeholder="Please enter email id" onChange={this.inputChange} onBlur={this.onBlurInput} onFocus={this.onFocusInput}/>
-         { emailIDError && <p className="error-msg">Please enter a valid email Id</p>}
+         { emailID && <p className="error-msg">Please enter a valid email Id</p>}
         </div>
         <div className="input-wrapper">
           <label className="label">Select your Gender:</label>
           <input type="radio" name="gender" value="male" onChange={this.inputChange}/>Male
           <input type="radio" name="gender" value="female" onChange={this.inputChange}/>Female
           <input type="radio" name="gender" value="others" onChange={this.inputChange}/>Others
-          { genderError && <p className="error-msg">Please select any gender</p>}
+          { gender && <p className="error-msg">Please select any gender</p>}
         </div>
         <div className="input-wrapper">
           <label className="label">Select your Skills:</label>
@@ -103,12 +117,12 @@ class Sidebar extends Component {
           <input type="checkbox" name="skills" value="php" onChange={this.inputChange}/>PHP
           <input type="checkbox" name="skills" value=".net" onChange={this.inputChange}/>.NET
           <input type="checkbox" name="skills" value="java" onChange={this.inputChange}/>JAVA
-          { skillsError && <p className="error-msg">Please select any skills</p>}
+          { skills && <p className="error-msg">Please select any skills</p>}
         </div>
         <div className="input-wrapper">
           <label className="label">Enter Address:</label>
           <textarea className="input" name="address" onChange={this.inputChange} onBlur={this.onBlurInput} onFocus={this.onFocusInput}></textarea>
-          { addressError && <p className="error-msg">Please enter a valid address</p>}
+          { address && <p className="error-msg">Please enter a valid address</p>}
         </div>
         <div className="input-wrapper">
         <label className="label">Select your City:</label>
@@ -119,7 +133,7 @@ class Sidebar extends Component {
           <option value="mumbai">Mumbai</option>
           <option value="kolkata">Kolkata</option>
         </select>
-      { cityError &&  <p className="error-msg">Please select any city</p>}
+      { city &&  <p className="error-msg">Please select any city</p>}
         </div>
         <div className="input-wrapper">
         <label className="label">Select your State:</label>
@@ -130,7 +144,7 @@ class Sidebar extends Component {
           <option value="west bengal">West Bengal</option>
           <option value="punjab">Punjab</option>
         </select>
-        { stateError && <p className="error-msg">Please select any state</p>}
+        { state && <p className="error-msg">Please select any state</p>}
 
         </div>
         <button onClick={() => this.onClickRegister()}>Register</button>
