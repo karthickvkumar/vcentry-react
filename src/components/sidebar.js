@@ -89,7 +89,8 @@ class Sidebar extends Component {
       <div className="form">
         <div className="input-wrapper">
           <label className="label">Enter First Name:</label>
-          <input className="input" type="text" name="firstName" placeholder="Please enter first name" onChange={this.inputChange} onBlur={this.onBlurInput} onFocus={this.onFocusInput}/>
+          <input className="input" type="text" name="firstName" placeholder="Please enter first name" 
+          onChange={this.inputChange} onBlur={this.onBlurInput} onFocus={this.onFocusInput}/>
           { firstName &&  <p className="error-msg">Please enter a valid first name</p>}
           
         </div>

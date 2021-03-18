@@ -5,12 +5,14 @@ import './index.css';
 // import HeaderComponent from './components/header';
 import Sidebar from './components/sidebar';
 import LoginComponent from './components/login';
+import ListTable from './components/listTable';
 
 function App(){
   return(
     <div>
       {/* <LoginComponent></LoginComponent> */}
-      <Sidebar></Sidebar>
+      {/* <Sidebar></Sidebar> */}
+      <ListTable></ListTable>
     </div>
   )
 }
