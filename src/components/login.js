@@ -41,6 +41,7 @@ class LoginComponent extends Component {
   
 
   render() {
+    console.log("Render Methods is Triggering...")
     const messsage = "The user details are,"
     return (
       <div> 
