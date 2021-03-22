@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import ApiService from '../services/api';
 
 class ListTable extends Component {
   constructor(props) {
@@ -13,19 +13,40 @@ class ListTable extends Component {
     }
   }
 
-  listUserProfile() {
-    const url = "https://reqres.in/api/users?page=1";
-    axios.get(url)
-      .then((response) => {
-        const { data } = response;
-        console.log(data.data)
-        this.setState({
-          employeeList: data.data
-        })
+  async listUserProfile() {
+    const url = "users?page=1";
+
+    const response = await ApiService.getAPI(url);
+    
+    if(response && response.status && response.status.toString()[0] == '2'){
+      const { data } = response;
+      this.setState({
+        employeeList: data.data
       })
-      .catch((error) => {
-        console.log(error)
-      })
+    }else{
+      console.log(response)
+    }
+
+    // ApiService.getAPI(url)
+    //   .then((response) => {
+    //     console.log(response)
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
+
+
+    // axios.get(url)
+    //   .then((response) => {
+    //     const { data } = response;
+    //     console.log(data.data)
+    //     this.setState({
+    //       employeeList: data.data
+    //     })
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
   }
 
   inputChange = (event) => {
@@ -34,18 +55,38 @@ class ListTable extends Component {
     })
   }
 
-  sumbitLogin(){
+  async sumbitLogin(){
     console.log(this.state.login)
     
-    const url = "https://reqres.in/api/login";
-    axios.post(url, this.state.login)
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    const url = "login";
+
+    const response = await ApiService.postAPI(url, this.state.login);
+    
+    const {data } = response;
+    
+    console.log(data.token)
+
+    localStorage.setItem('token', data.token);
+
+
+    sessionStorage.setItem('token', data.token)
+
+
+    // const url = "https://reqres.in/api/login";
+    // axios.post(url, this.state.login)
+    //   .then((response) => {
+    //     console.log(response)
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
   }
+
+  logout(){
+    localStorage.clear();
+    sessionStorage.clear();
+  }
+
 
   render() {
     let listOfEmployee = this.state.employeeList.map((value, index) => {
@@ -76,6 +117,7 @@ class ListTable extends Component {
               onChange={this.inputChange} />
           </div>
           <button onClick={() => this.sumbitLogin()}>LOGIN</button>
+          <button onClick={() => this.logout()}>Clear localStorage</button>
         </div>
         <button onClick={() => this.listUserProfile()}>List All User Profile</button>
         <table id="customers">
