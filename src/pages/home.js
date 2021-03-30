@@ -4,6 +4,7 @@ import InboxPage from './inbox';
 import ProfilePage from './profile';
 import AboutPage from './about';
 import SettingsPage from './settings';
+import SingleUser from './single-user';
 
 class HomePage extends Component {
 
@@ -40,6 +41,7 @@ class HomePage extends Component {
                 <Route path="/home/about" component={AboutPage}></Route>
                 <Route path="/home/profile" component={ProfilePage}></Route>
                 <Route path="/home/settings" component={SettingsPage}></Route>
+                <Route path="/home/user/:id/name/:username" component={SingleUser}></Route>
               </Switch>
           </div>
         </div>

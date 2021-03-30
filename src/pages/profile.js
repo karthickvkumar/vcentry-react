@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ApiService from '../services/api';
+import {NavLink} from 'react-router-dom'
 
 class ProfilePage extends Component {
   constructor(props){
@@ -30,6 +31,15 @@ class ProfilePage extends Component {
     })
   }
 
+  onDeleteUser(user){
+    const index = this.state.userList.findIndex(value => value.id === user.id)
+    console.log(user.id, index)
+    this.state.userList.splice(index, 1);
+    this.setState({
+      userList : this.state.userList
+    })
+  }
+
   render() {
     let users = this.state.userList.map((value, index) => {
       return(
@@ -40,6 +50,10 @@ class ProfilePage extends Component {
           <td>{value.email}</td>
           <td>
             <img src={value.avatar} style={{width: '45px'}} />
+          </td>
+          <td>
+            <NavLink to={"/home/user/" + value.id + "/name/" + value.first_name} >Details</NavLink>
+            <a onClick={() => this.onDeleteUser(value)}>Delete</a>
           </td>
         </tr>
       )
@@ -54,6 +68,7 @@ class ProfilePage extends Component {
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Avatar</th>
+                <th>Action</th>
               </tr>
             </thead>
             {!this.state.isLoading && <tbody>
