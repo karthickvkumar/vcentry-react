@@ -12,6 +12,7 @@ class SingleUser extends Component {
   }
 
   async componentDidMount(){
+    console.log(this.props.match)
     const { id } = this.props.match.params;
     console.log(id)
     const url = "users/" + id;

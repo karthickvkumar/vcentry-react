@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
-import {BrowserRouter, Route, Switch, NavLink} from 'react-router-dom';
+import React, { Component, lazy, Suspense } from 'react';
+import {BrowserRouter, Route, Switch, NavLink, withRouter} from 'react-router-dom';
 import InboxPage from './inbox';
 import ProfilePage from './profile';
-import AboutPage from './about';
+//import AboutPage from './about';
 import SettingsPage from './settings';
 import SingleUser from './single-user';
+
+const AboutPage = lazy(() => import('./about'));
 
 class HomePage extends Component {
 
@@ -13,6 +15,7 @@ class HomePage extends Component {
   }
 
   render() {
+    console.log(this.props.history.location.state)
     return (
       <BrowserRouter>
         <div className="header">
@@ -38,7 +41,14 @@ class HomePage extends Component {
           <div className="content">
               <Switch>
                 <Route path="/home" exact component={InboxPage}></Route>
-                <Route path="/home/about" component={AboutPage}></Route>
+                {/* <Route path="/home/about" component={AboutPage}></Route> */}
+                <Route path="/home/about" render={ () => { 
+                  return(
+                    <Suspense fallback={<h2>Page is loading...</h2>}>
+                        <AboutPage></AboutPage>
+                    </Suspense>
+                   )
+                } }></Route>
                 <Route path="/home/profile" component={ProfilePage}></Route>
                 <Route path="/home/settings" component={SettingsPage}></Route>
                 <Route path="/home/user/:id/name/:username" component={SingleUser}></Route>
@@ -50,4 +60,4 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+export default withRouter(HomePage);

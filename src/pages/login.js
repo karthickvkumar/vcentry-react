@@ -5,7 +5,13 @@ class LoginPage extends Component {
 
   onLogin(){
     //code
-    this.props.history.push('/home');
+    var response = {
+      isAuthenticated : true,
+      token : 'sdfwerwerfefvrefedfsdfsdfsdfsdfsfsdfssdfsff',
+      customerID : 'AQFD897'
+    }
+
+    this.props.history.push('/home', response);
   }
 
   render() {
