@@ -11,19 +11,20 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import LoginPage from './pages/login';
 import RegisterPage from './pages/register';
-//import HomePage from './pages/home';
+import HomePage from './pages/home';
 import PageNotFound from './pages/page-not-found';
+import ProtectedRoute from './components/protected-route';
 
 function App(){
-  const HomePage = lazy(() => import('./pages/home'));
+  // const HomePage = lazy(() => import('./pages/home'));
 
   return(
    <BrowserRouter>
       <Switch>
         <Route path="/" exact component={LoginPage}></Route>
-        <Route path="/register" component={RegisterPage}></Route>
-        {/* <Route path="/home" component={HomePage}></Route> */}
-        <Route path="/home" render={
+        <ProtectedRoute path="/register" component={RegisterPage}></ProtectedRoute>
+        <ProtectedRoute path="/home" component={HomePage}></ProtectedRoute>
+        {/* <Route path="/home" render={
           () => {
             return(
               <Suspense fallback={<h2>Page is loading...</h2>}>
@@ -31,7 +32,7 @@ function App(){
               </Suspense>
             )
           }
-        }></Route>
+        }></Route> */}
         <Route component={PageNotFound}></Route>
       </Switch>
    </BrowserRouter>

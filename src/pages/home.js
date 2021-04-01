@@ -11,6 +11,7 @@ const AboutPage = lazy(() => import('./about'));
 class HomePage extends Component {
 
   onLogout(){
+    localStorage.clear();
     this.props.history.push("/");
   }
 
