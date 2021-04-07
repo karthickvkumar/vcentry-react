@@ -14,6 +14,7 @@ import RegisterPage from './pages/register';
 import HomePage from './pages/home';
 import PageNotFound from './pages/page-not-found';
 import ProtectedRoute from './components/protected-route';
+import LifeCycle from './pages/life-cycle';
 
 function App(){
   // const HomePage = lazy(() => import('./pages/home'));
@@ -24,6 +25,7 @@ function App(){
         <Route path="/" exact component={LoginPage}></Route>
         <ProtectedRoute path="/register" component={RegisterPage}></ProtectedRoute>
         <ProtectedRoute path="/home" component={HomePage}></ProtectedRoute>
+        <ProtectedRoute path="/extra" component={LifeCycle}></ProtectedRoute>
         {/* <Route path="/home" render={
           () => {
             return(

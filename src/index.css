@@ -92,3 +92,8 @@
   display: flex;
     justify-content: center;
 }
+
+.active-tr{
+  border: 2px solid red;
+  background-color: chartreuse !important;
+}
