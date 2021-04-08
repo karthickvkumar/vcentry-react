@@ -16,8 +16,8 @@ class InboxPage extends Component {
       user : {
         name : '',
         age: ''
-      }
-
+      },
+      selectedUserIndex : ''
     }
   }
 
@@ -35,11 +35,12 @@ class InboxPage extends Component {
   //   console.log(value)
   // }
   
-  onReceive = (value) => {
+  onReceive = (value, index) => {
     console.log(value)
 
     this.setState({
-      user : {...this.state.user, ...value}
+      user : {...this.state.user, ...value},
+      selectedUserIndex : index
     })
   }
 
@@ -50,7 +51,11 @@ class InboxPage extends Component {
   }
 
   onUpdate(){
-    console.log(this.state.user)
+    console.log(this.state.user, this.state.selectedUserIndex)
+    this.state.list[this.state.selectedUserIndex] = this.state.user;
+    this.setState({
+      list : this.state.list
+    })
   }
 
   render() {
@@ -68,7 +73,7 @@ class InboxPage extends Component {
             <button onClick={() => this.onUpdate()}>Update User</button>
           </div>
         </div>
-        <TableComponent data={this.state.list} selection={this.onReceive} ></TableComponent>
+        <TableComponent data={this.state.list} updatedUser={this.state.user} selection={this.onReceive} ></TableComponent>
       </div>
     );
   }
