@@ -5,7 +5,8 @@ class TableComponent extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selectedUser : {}
+      selectedUser : {},
+      username: ""
     }
   }
 
@@ -24,8 +25,22 @@ class TableComponent extends Component {
     this.props.selection(user, index);
   }
 
+  handleChange = (event) => {
+    this.setState({
+      username : event.target.value
+    })
+  }
+
   render() {
-    let list = this.props.data.map((value, index) => {
+    
+
+    let filteredUser = this.props.data.filter((value) => {
+      return value.name.includes(this.state.username)
+    })
+
+    console.log(filteredUser)
+
+    let list = filteredUser.map((value, index) => {
       return(
         <tr key={index} style={{'cursor' : 'pointer'}} onClick={() => this.onSelectUser(value, index)}
             className={this.state.selectedUser.name == value.name ? 'active-tr' : ''}>
@@ -38,6 +53,11 @@ class TableComponent extends Component {
     return (
       <div>
         <h2>This is a Table Component</h2>
+        <div>
+          <label>Search User</label>
+          <input type="text" placeholder="Enter Username.." onChange={this.handleChange}></input>
+          {this.state.username}
+        </div>
         <table id="customers">
           <thead>
             <tr>
@@ -46,7 +66,11 @@ class TableComponent extends Component {
             </tr>
           </thead>
           <tbody>
-            {list}
+            {list.length !== 0 ?  list : 
+              <tr colSpan="2">
+                <td>No user found</td>
+              </tr>
+            }
           </tbody>
         </table>
       </div>

@@ -1,14 +1,22 @@
-import React, { Component } from 'react';
-import {withRouter} from 'react-router-dom'
+import React, { useState } from 'react';
 
-class AboutPage extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Welcome to About Pagge</h1>
-      </div>
-    );
+const AboutPage = () => {
+
+  const [name, updateName] = useState('');
+
+  const handleChange = (event) => {
+    console.log(event.target.value)
+    updateName(event.target.value)
   }
-}
 
-export default withRouter(AboutPage);
+  return (
+    <div>
+      <h1>About page - Stateless or Functional Component</h1>
+      <label>Enter Username : </label>
+      <input type="text" placeholder="Enter user name.." onChange={handleChange}/>
+      <h1>The user name is {name}</h1>
+    </div>
+  );
+};
+
+export default AboutPage;
