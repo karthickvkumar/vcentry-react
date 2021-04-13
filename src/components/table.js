@@ -32,7 +32,6 @@ class TableComponent extends Component {
   }
 
   render() {
-    
 
     let filteredUser = this.props.data.filter((value) => {
       return value.name.includes(this.state.username)
@@ -67,8 +66,8 @@ class TableComponent extends Component {
           </thead>
           <tbody>
             {list.length !== 0 ?  list : 
-              <tr colSpan="2">
-                <td>No user found</td>
+              <tr>
+                <td colSpan="2">No user found</td>
               </tr>
             }
           </tbody>
