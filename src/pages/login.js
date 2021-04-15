@@ -15,7 +15,7 @@ class LoginPage extends Component {
   componentWillMount(){
     let isAuthenticated = localStorage.getItem('access-token') ? true : false;
     if(isAuthenticated){
-      this.props.history.push('/home')
+      this.props.history.push('/home', this.state)
     }
   }
 
@@ -27,7 +27,7 @@ class LoginPage extends Component {
     if(response.status == 200){
       let token = response.data.token;
       localStorage.setItem('access-token', token);
-      this.props.history.push('/home');
+      this.props.history.push('/home', this.state);
     }
     else{
       alert('Invalid User')

@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
+
+import ProfileView from '../components/profile-view';
 
 const AboutPage = () => {
 
-  const [name, updateName] = useState('karthick');
+  const [username, updateUsername] = useState('');
+  const [job, updateJob] = useState('');
 
   const [register, updateForm] = useState({
     username : '', password : '', gender: '', address: '', city : ''
   });  
-
-  const handleChange = (event) => {
-    updateName(event.target.value)
-  }
 
   const handleForm = (event) => {
     console.log(event.target.value)
@@ -22,11 +21,27 @@ const AboutPage = () => {
     console.log(register)
   }
 
+  const handleUsername = (event) =>{
+    updateUsername(event.target.value)
+  }
+
+  // componentDidMount
+  useEffect(() => {
+    console.log('This is a Effect Method')
+    //alert('Trigger API')
+  }, []);
+
+  const onReceiveJob = (value) => {
+    updateJob(value);
+  }
+
   return (
     <div>
       <h1>About page - Stateless or Functional Component</h1>
+      <h2>{job}</h2>
       <label>Enter Username : </label>
-      <input type="text" placeholder="Enter user name.." name="username" onChange={handleForm} />
+      <input type="text" placeholder="Enter user name.." name="username" onChange={handleUsername} />
+      {username}
       <br></br>
       <label>Enter Password :</label>
       <input type="password" placeholder="Enter a passowrd.." name="password" onChange={handleForm}/>
@@ -48,7 +63,9 @@ const AboutPage = () => {
       </select>
       <br></br>
       <button onClick={() => onUpdate()}>Update Value</button>
-      <h1>The user name is {name}</h1>
+      <div>
+        <ProfileView name={username} handleInput={onReceiveJob}></ProfileView>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TableComponent from '../components/table';
+import ProfileView from '../components/profile-view';
 
 class InboxPage extends Component {
   constructor(props){
@@ -73,6 +74,7 @@ class InboxPage extends Component {
             <button onClick={() => this.onUpdate()}>Update User</button>
           </div>
         </div>
+        <ProfileView></ProfileView>
         <TableComponent data={this.state.list} updatedUser={this.state.user} selection={this.onReceive} ></TableComponent>
       </div>
     );

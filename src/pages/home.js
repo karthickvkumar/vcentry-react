@@ -16,7 +16,7 @@ class HomePage extends Component {
   }
 
   render() {
-    console.log(this.props.history.location.state)
+    console.log(this.props.history.location)
     return (
       <BrowserRouter>
         <div className="header">
