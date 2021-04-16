@@ -5,6 +5,7 @@ import ProfilePage from './profile';
 //import AboutPage from './about';
 import SettingsPage from './settings';
 import SingleUser from './single-user';
+import SharingSiblings1 from './sharing-siblings-1';
 
 const AboutPage = lazy(() => import('./about'));
 
@@ -37,6 +38,9 @@ class HomePage extends Component {
             <div className="btn-link-wrap">
               <NavLink to="/home/settings" className="btn-link" activeClassName="active-btn-link"> Settings</NavLink>
             </div>
+            <div className="btn-link-wrap">
+              <NavLink to="/home/sibling-1" className="btn-link" activeClassName="active-btn-link"> Sibling-1</NavLink>
+            </div>
 
           </div>
           <div className="content">
@@ -53,6 +57,7 @@ class HomePage extends Component {
                 <Route path="/home/profile" component={ProfilePage}></Route>
                 <Route path="/home/settings" component={SettingsPage}></Route>
                 <Route path="/home/user/:id/name/:username" component={SingleUser}></Route>
+                <Route path="/home/sibling-1" component={SharingSiblings1}></Route>
               </Switch>
           </div>
         </div>

@@ -1,0 +1,25 @@
+.wrap{
+  border: 2px solid red;
+  height: 75vh;
+  display: flex;
+}
+.blue-box{
+  border: 2px solid blue;
+  height: 100%;
+  margin-right: 15px;
+  width: 50%;
+}
+
+.yellow-box{
+  border: 2px solid yellow;
+  width: 100%;
+  height: 50%;
+  margin-top: 25%;
+}
+
+.green-box{
+  border: 2px solid green;
+  width: 100%;
+  height: 50%;
+  margin-top: 25%;
+}
