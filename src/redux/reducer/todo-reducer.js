@@ -4,7 +4,7 @@ const initalState = {
 export default function todoReducer(state = initalState, action){
   console.log(action)
 
-  switch(){
-    
-  }
+  // switch(){
+
+  // }
 }
