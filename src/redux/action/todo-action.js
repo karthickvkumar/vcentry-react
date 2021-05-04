@@ -1,7 +1,8 @@
-export function addTodoList(){
+export function addTodoList(message){
+  console.log("Action ---> ", message)
   return {
     type : "ADD_NEW_TODO_MESSAGE",
-    value : 'React JS'
+    value : message
   }
 }
 

@@ -28,12 +28,17 @@ class SettingsPage extends Component {
   }
   
   addNewTodo(){
-    console.log(this.state.message)
-    this.props.action.addTodoList();
+    console.log("Settings Component ---> ", this.state.message )
+    this.props.action.addTodoList(this.state.message);
   }
 
 
   render() {
+    const list = this.props.todoItems.todoList.map((value, index) => {
+      return(
+        <li key={index}>{value}</li>
+      )
+    })
     return (
       <div>
         <h1>Welcome to Settings Page</h1>
@@ -48,15 +53,18 @@ class SettingsPage extends Component {
           <input type="text" onChange={this.handelInput}></input>
           <button onClick={() => this.addNewTodo()}>Add New TODO</button>
         </div>
+        <ul>
+          {list}
+        </ul>
       </div>
     );
   }
 }
 
 function mapStateToProps(state){
-  console.log(state)
+  console.log("mapStateToProps --> ", state)
   return {
-
+    todoItems : state.todoReducer
   }
 }
 
